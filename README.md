@@ -1,10 +1,3 @@
-# Vscode Google Translate
-
-[![Licence](https://img.shields.io/github/license/funkyremi/vscode-google-translate.svg)](https://github.com/funkyremi/vscode-google-translate)
-![VS Code Marketplace](https://vsmarketplacebadge.apphb.com/version-short/funkyremi.vscode-google-translate.svg) ![Rating](https://vsmarketplacebadge.apphb.com/rating-short/funkyremi.vscode-google-translate.svg)
-
-Quickly translate text right in your code 🚀
-
 ![Demo](demo.gif)
 
 ## Usage
@@ -45,16 +38,22 @@ You can use a proxy to translate text with the following settings:
 "vscodeGoogleTranslate.password": "password"    // Proxy password
 ```
 
-## Pull request
+## Development
+```js
+// 安裝
+npm i
 
-Pull request are welcome. Fork the project, clone it, install dependencies `npm i` and start coding :-).
+// 開發測試
+fn + F5
+```
 
-If you want to make changes to the code hovering translations. Please run "npm run compile" from the root in order to compile the typescript
-part of the codebase.
+## How to share extension
+```js
+// 安装对应的模块vsce
+npm i @vscode/vsce -g
 
-Many thanks to the people who participate for making it awesome!
-## Show your support
-
-**Give five stars 🤩**
-
-If you like it, [rate it](https://marketplace.visualstudio.com/items?itemName=funkyremi.vscode-google-translate&ssr=false#review-details)
+// 利用vsce进行打包，生成对应的vsix文件
+vsce package
+```
+將產生於專案目錄下的 .vsix 檔案傳給別人
+![從 VSIX 安裝...](https://segmentfault.com/img/remote/1460000040720766)

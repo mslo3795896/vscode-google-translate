@@ -16,9 +16,7 @@
     "categories": [
         "Formatters"
     ],
-    "activationEvents": [
-        "*"
-    ],
+    "activationEvents": [],
     "main": "./extension",
     "contributes": {
         "commands": [
