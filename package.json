@@ -1,14 +1,14 @@
 {
-    "name": "vscode-google-translate",
-    "displayName": "Vscode Google Translate",
+    "name": "vscode-google-translate-for-document",
+    "displayName": "Vscode Google Translate For Document",
     "description": "Translate text right in your code",
-    "publisher": "funkyremi",
+    "publisher": "tim",
     "version": "1.4.13",
     "license": "MIT",
     "icon": "icon.png",
     "repository": {
         "type": "git",
-        "url": "https://github.com/funkyremi/vscode-google-translate.git"
+        "url": "https://github.com/mslo3795896/vscode-google-translate.git"
     },
     "engines": {
         "vscode": "^1.29.0"
@@ -31,6 +31,10 @@
                 "title": "Translate selection(s) to preferred language"
             },
             {
+                "command": "extension.translateFocusDocument",
+                "title": "Translate focus document to preferred language"
+            },
+            {
                 "command": "extension.translateLinesUnderCursor",
                 "title": "Translate line(s) under the cursor"
             },
@@ -47,6 +51,10 @@
             "title": "Vscode Google Translate",
             "type": "object",
             "properties": {
+                "vscodeGoogleTranslate.translateFrom": {
+                    "type": "string",
+                    "description": "要取代的語言，預設為繁體與簡體（regex 不需加上'/'）"
+                },
                 "vscodeGoogleTranslate.preferredLanguage": {
                     "type": "string",
                     "enum": [
@@ -187,7 +195,16 @@
                 "when": "editorTextFocus",
                 "command": "extension.translateTextPreferred"
             }
-        ]
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "command": "extension.translateFocusDocument",
+                    "group": "navigation"
+                }
+            ]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install && cd server && npm install && tsc -p .",

@@ -332,6 +332,36 @@ async function activate(context) {
   );
   context.subscriptions.push(translateTextPreferred);
 
+  const translateFocusDocument = vscode.commands.registerCommand(
+    "extension.translateFocusDocument",
+    async function () {
+      function _findAndSelect(
+        editor = vscode.window.activeTextEditor
+      ) {
+        let foundSelections = [];
+        const configTranslateFrom = vscode.workspace
+          .getConfiguration("vscodeGoogleTranslate")
+          .get("translateFrom")
+        const patternChinese = /([\p{sc=Han}]+)/;
+        const findValue = configTranslateFrom !== "" ? configTranslateFrom : patternChinese;
+
+        // get all the matches in the document
+        let fullText = editor.document.getText();
+        let matches = [...fullText.matchAll(new RegExp(findValue, "ugm"))];
+
+        matches.forEach((match, index) => {
+            let startPos = editor.document.positionAt(match.index);
+            let endPos = editor.document.positionAt(match.index + match[0].length);
+            foundSelections[index] = new vscode.Selection(startPos, endPos);
+        });
+        editor.selections = foundSelections; // this will remove all the original selections
+      }
+      _findAndSelect();
+      vscode.commands.executeCommand("extension.translateTextPreferred")
+    }
+  );
+  context.subscriptions.push(translateFocusDocument);
+
   const translateLinesUnderCursor = vscode.commands.registerCommand(
     "extension.translateLinesUnderCursor",
     function translateLinesUnderCursorcallback() {
